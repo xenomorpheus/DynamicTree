@@ -36,12 +36,12 @@ public class Main {
 		// Create the components.
 		DynamicTree treePanel = new DynamicTree();
 
-		// Create and set up the content pane.
-		DynamicTreeDemo newContentPane = new DynamicTreeDemo(treePanel);
+		// Create and set up the content panel.
+		DynamicTreePanel newContentPanel = new DynamicTreePanel(treePanel);
 		populateTree(treePanel);
 
-		newContentPane.setOpaque(true); // content panes must be opaque
-		frame.setContentPane(newContentPane);
+		newContentPanel.setOpaque(true); // content panes must be opaque
+		frame.setContentPane(newContentPanel);
 
 		// Display the window.
 		frame.pack();
