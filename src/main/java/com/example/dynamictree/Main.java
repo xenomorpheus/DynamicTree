@@ -4,6 +4,13 @@ import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 import javax.swing.tree.DefaultMutableTreeNode;
 
+
+/**
+ * A JFrame with a JTree and various buttons for add/remove/clear nodes in the tree.
+ * 
+ * @author xenomorpheus
+ *
+ */
 public class Main {
 
 	public static void populateTree(DynamicTree treePanel) {
@@ -33,12 +40,15 @@ public class Main {
 		JFrame frame = new JFrame("DynamicTreeDemo");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
+		DefaultMutableTreeNode rootNode = new DefaultMutableTreeNode(
+				"Root Node");
+
 		// Create the components.
-		DynamicTree treePanel = new DynamicTree();
+		DynamicTree dynamicTree = new DynamicTree(rootNode);
 
 		// Create and set up the content panel.
-		DynamicTreePanel newContentPanel = new DynamicTreePanel(treePanel);
-		populateTree(treePanel);
+		DynamicTreePanel newContentPanel = new DynamicTreePanel(dynamicTree);
+		populateTree(dynamicTree);
 
 		newContentPanel.setOpaque(true); // content panes must be opaque
 		frame.setContentPane(newContentPanel);

@@ -1,3 +1,6 @@
+// Based on
+// http://docs.oracle.com/javase/tutorial/uiswing/examples/components/DynamicTreeDemoProject/src/components/DynamicTree.java
+
 package com.example.dynamictree;
 
 //package components;
@@ -18,21 +21,24 @@ import javax.swing.tree.MutableTreeNode;
 import javax.swing.tree.TreePath;
 import javax.swing.tree.TreeSelectionModel;
 
+/**
+ * A JTree in a JPanel.
+ * 
+ * @author xenomorpheus
+ */
 
 public class DynamicTree extends JPanel {
-	/**
-	 * 
-	 */
+	/** serial id */
 	private static final long serialVersionUID = 1L;
 	protected DefaultMutableTreeNode rootNode;
 	protected DefaultTreeModel treeModel;
 	protected JTree tree;
 	private Toolkit toolkit = Toolkit.getDefaultToolkit();
 
-	public DynamicTree() {
+	public DynamicTree(DefaultMutableTreeNode rootNode) {
 		super(new GridLayout(1, 0));
 
-		rootNode = new DefaultMutableTreeNode("Root Node");
+		this.rootNode = rootNode;
 		treeModel = new DefaultTreeModel(rootNode);
 		treeModel.addTreeModelListener(new MyTreeModelListener());
 		tree = new JTree(treeModel);
@@ -106,6 +112,5 @@ public class DynamicTree extends JPanel {
 		}
 		return childNode;
 	}
-
 
 }

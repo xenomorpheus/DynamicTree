@@ -16,25 +16,32 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
+/**
+ * A JPanel with a JTree and various buttons for add/remove/clear nodes in the tree.
+ * 
+ * @author xenomorpheus
+ *
+ */
+
 public class DynamicTreePanel extends JPanel {
 	/** serial id. */
 	private static final long serialVersionUID = 1L;
 	private int newNodeSuffix = 1;
 
 
-    final DynamicTree treePanel;
+    protected final DynamicTree dynamicTree;
 
-	public DynamicTreePanel(DynamicTree newTreePanel) {
+	public DynamicTreePanel(DynamicTree newDynamicTree) {
 		super(new BorderLayout());
 
-		treePanel = newTreePanel;
+		this.dynamicTree = newDynamicTree;
 
 		JButton addButton = new JButton("Add");
 		addButton.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent event) {
-				treePanel.addObject("New Node " + newNodeSuffix++);
+				dynamicTree.addObject("New Node " + newNodeSuffix++);
 			}
 		});
 
@@ -43,7 +50,7 @@ public class DynamicTreePanel extends JPanel {
 
 			@Override
 			public void actionPerformed(ActionEvent event) {
-				treePanel.removeCurrentNode();
+				dynamicTree.removeCurrentNode();
 			}
 		});
 
@@ -52,13 +59,13 @@ public class DynamicTreePanel extends JPanel {
 
 			@Override
 			public void actionPerformed(ActionEvent event) {
-				treePanel.clear();
+				dynamicTree.clear();
 			}
 		});
 
 		// Lay everything out.
-		treePanel.setPreferredSize(new Dimension(300, 150));
-		add(treePanel, BorderLayout.CENTER);
+		dynamicTree.setPreferredSize(new Dimension(300, 150));
+		add(dynamicTree, BorderLayout.CENTER);
 
 		JPanel panel = new JPanel(new GridLayout(0, 3));
 		panel.add(addButton);
