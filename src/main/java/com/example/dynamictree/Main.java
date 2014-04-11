@@ -4,12 +4,12 @@ import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 import javax.swing.tree.DefaultMutableTreeNode;
 
-
 /**
- * A JFrame with a JTree and various buttons for add/remove/clear nodes in the tree.
+ * A JFrame with a JTree and various buttons for add/remove/clear nodes in the
+ * tree.
  * 
  * @author xenomorpheus
- *
+ * 
  */
 public class Main {
 
@@ -53,9 +53,9 @@ public class Main {
 		newContentPanel.setOpaque(true); // content panes must be opaque
 		frame.setContentPane(newContentPanel);
 
-		// Display the window.
+		frame.setLocationRelativeTo(null); // This will center your app
 		frame.pack();
-		frame.setVisible(true);
+		frame.setVisible(true); // Display the window.
 	}
 
 	public static void main(String[] args) {
