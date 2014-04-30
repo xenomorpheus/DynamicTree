@@ -31,6 +31,10 @@ public class DynamicTreePanel extends JPanel {
 	static final String KEY_DYNAMIC_TREE = "DynamicTree";
 	static final String KEY_NODE_ID = "Node Id";
 
+	/**
+	 * Each new node will have an unique name by adding suffix using an
+	 * incrementing integer.
+	 */
 	private int newNodeSuffix = 1;
 
 	public DynamicTreePanel(DynamicTree dynamicTree) {

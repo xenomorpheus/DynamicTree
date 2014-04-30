@@ -1,3 +1,8 @@
+/*
+ * This code is based on an example provided by Richard Stanford,
+ * a tutorial reader.
+ * http://docs.oracle.com/javase/tutorial/uiswing/examples/components/DynamicTreeDemoProject/src/components/DynamicTree.java
+ */
 package com.example.dynamictree;
 
 import javax.swing.JFrame;
@@ -5,7 +10,7 @@ import javax.swing.SwingUtilities;
 import javax.swing.tree.DefaultMutableTreeNode;
 
 /**
- * A JFrame with a JTree and various buttons for add/remove/clear nodes in the
+ * A JFrame with a JTree and various buttons to add/remove/clear nodes in the
  * tree.
  * 
  * @author xenomorpheus

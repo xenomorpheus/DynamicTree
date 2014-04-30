@@ -1,5 +1,8 @@
-// Based on
-// http://docs.oracle.com/javase/tutorial/uiswing/examples/components/DynamicTreeDemoProject/src/components/DynamicTree.java
+/*
+ * This code is based on an example provided by Richard Stanford,
+ * a tutorial reader.
+ * http://docs.oracle.com/javase/tutorial/uiswing/examples/components/DynamicTreeDemoProject/src/components/DynamicTree.java
+ */
 
 package com.example.dynamictree;
 
@@ -30,9 +33,9 @@ import javax.swing.tree.TreeSelectionModel;
 public class DynamicTree extends JPanel {
 	/** serial id */
 	private static final long serialVersionUID = 1L;
-	protected DefaultMutableTreeNode rootNode;
-	protected DefaultTreeModel treeModel;
-	protected JTree tree;
+	private DefaultMutableTreeNode rootNode;
+	private DefaultTreeModel treeModel;
+	private JTree tree;
 	private Toolkit toolkit = Toolkit.getDefaultToolkit();
 
 	public DynamicTree(DefaultMutableTreeNode rootNode) {
