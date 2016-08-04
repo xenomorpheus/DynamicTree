@@ -46,8 +46,7 @@ public class DynamicTree extends JPanel {
 		treeModel.addTreeModelListener(new MyTreeModelListener());
 		tree = new JTree(treeModel);
 		tree.setEditable(true);
-		tree.getSelectionModel().setSelectionMode(
-				TreeSelectionModel.SINGLE_TREE_SELECTION);
+		tree.getSelectionModel().setSelectionMode(TreeSelectionModel.SINGLE_TREE_SELECTION);
 		tree.setShowsRootHandles(true);
 
 		JScrollPane scrollPane = new JScrollPane(tree);
@@ -60,15 +59,22 @@ public class DynamicTree extends JPanel {
 		treeModel.reload();
 	}
 
+	/** Remove the node. */
+	public void removeNode(DefaultMutableTreeNode node) {
+		MutableTreeNode parent = (MutableTreeNode) (node.getParent());
+		if (parent != null) {
+			treeModel.removeNodeFromParent(node);
+		}
+	}
+
 	/** Remove the currently selected node. */
 	public void removeCurrentNode() {
 		TreePath currentSelection = tree.getSelectionPath();
 		if (currentSelection != null) {
-			DefaultMutableTreeNode currentNode = (DefaultMutableTreeNode) (currentSelection
-					.getLastPathComponent());
+			DefaultMutableTreeNode currentNode = (DefaultMutableTreeNode) (currentSelection.getLastPathComponent());
 			MutableTreeNode parent = (MutableTreeNode) (currentNode.getParent());
 			if (parent != null) {
-				treeModel.removeNodeFromParent(currentNode);
+				this.removeNode(currentNode);
 				return;
 			}
 		}
@@ -85,20 +91,17 @@ public class DynamicTree extends JPanel {
 		if (parentPath == null) {
 			parentNode = rootNode;
 		} else {
-			parentNode = (DefaultMutableTreeNode) (parentPath
-					.getLastPathComponent());
+			parentNode = (DefaultMutableTreeNode) (parentPath.getLastPathComponent());
 		}
 
 		return addObject(parentNode, child, true);
 	}
 
-	public DefaultMutableTreeNode addObject(DefaultMutableTreeNode parent,
-			Object child) {
+	public DefaultMutableTreeNode addObject(DefaultMutableTreeNode parent, Object child) {
 		return addObject(parent, child, false);
 	}
-
-	public DefaultMutableTreeNode addObject(DefaultMutableTreeNode parent,
-			Object child, boolean shouldBeVisible) {
+	
+	public DefaultMutableTreeNode addObject(DefaultMutableTreeNode parent, Object child, boolean shouldBeVisible) {
 		DefaultMutableTreeNode childNode = new DefaultMutableTreeNode(child);
 
 		if (parent == null) {
