@@ -10,6 +10,7 @@ import javax.swing.SwingUtilities;
 import javax.swing.tree.DefaultMutableTreeNode;
 
 import org.apache.log4j.Logger;
+
 /**
  * A JFrame with a JTree and various buttons to add/remove/clear nodes in the
  * tree.
@@ -19,8 +20,7 @@ import org.apache.log4j.Logger;
  */
 public class Main {
 	/** class logger */
-	private static final Logger LOGGER = Logger.getLogger(Main.class
-			.getName());
+	private static final Logger LOGGER = Logger.getLogger(Main.class.getName());
 
 	/**
 	 * Create the GUI and show it. For thread safety, this method should be
@@ -78,7 +78,7 @@ public class Main {
 			LOGGER.info("Sleeper must awaken");
 			DefaultMutableTreeNode sleeper = dynamicTree.addObject(null, "Sleeper must awaken");
 			DefaultMutableTreeNode sleeper_child1 = dynamicTree.addObject(sleeper, "Sleeper - child1");
-			DefaultMutableTreeNode sleeper_child2 = dynamicTree.addObject(sleeper, "Sleeper - child2",true);
+			DefaultMutableTreeNode sleeper_child2 = dynamicTree.addObject(sleeper, "Sleeper - child2", true);
 			try {
 				Thread.sleep(4000);
 			} catch (InterruptedException e) {

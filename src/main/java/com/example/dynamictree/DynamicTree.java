@@ -100,7 +100,7 @@ public class DynamicTree extends JPanel {
 	public DefaultMutableTreeNode addObject(DefaultMutableTreeNode parent, Object child) {
 		return addObject(parent, child, false);
 	}
-	
+
 	public DefaultMutableTreeNode addObject(DefaultMutableTreeNode parent, Object child, boolean shouldBeVisible) {
 		DefaultMutableTreeNode childNode = new DefaultMutableTreeNode(child);
 
