@@ -1,3 +1,9 @@
+/*
+ * This code is based on an example provided by Richard Stanford,
+ * a tutorial reader.
+ * http://docs.oracle.com/javase/tutorial/uiswing/examples/components/DynamicTreeDemoProject/src/components/DynamicTree.java
+ */
+
 package com.example.dynamictree;
 
 //package components;
@@ -7,117 +13,110 @@ package com.example.dynamictree;
  * a tutorial reader.
  */
 
-import java.awt.BorderLayout;
-import java.awt.Dimension;
 import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-
-import javax.swing.AbstractAction;
-import javax.swing.JButton;
+import java.awt.Toolkit;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTree;
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.DefaultTreeModel;
+import javax.swing.tree.MutableTreeNode;
+import javax.swing.tree.TreePath;
+import javax.swing.tree.TreeSelectionModel;
 
 /**
- * A JPanel with a JTree and various buttons for add/remove/clear nodes in the
- * tree.
+ * A JTree in a JPanel.
  * 
  * @author xenomorpheus
- * 
  */
 
 public class DynamicTreePanel extends JPanel {
-	/** serial id. */
+	/** serial id */
 	private static final long serialVersionUID = 1L;
+	private DefaultMutableTreeNode rootNode;
+	private DefaultTreeModel treeModel;
+	private JTree tree;
+	private Toolkit toolkit = Toolkit.getDefaultToolkit();
 
-	static final String KEY_DYNAMIC_TREE = "DynamicTree";
-	static final String KEY_NODE_ID = "Node Id";
+	public DynamicTreePanel(DefaultMutableTreeNode rootNode) {
+		super(new GridLayout(1, 0));
 
-	/**
-	 * Each new node will have an unique name by adding suffix using an
-	 * incrementing integer.
-	 */
-	private int newNodeSuffix = 1;
+		this.rootNode = rootNode;
+		treeModel = new DefaultTreeModel(rootNode);
+		treeModel.addTreeModelListener(new MyTreeModelListener());
+		tree = new JTree(treeModel);
+		tree.setEditable(true);
+		tree.getSelectionModel().setSelectionMode(TreeSelectionModel.SINGLE_TREE_SELECTION);
+		tree.setShowsRootHandles(true);
 
-	public DynamicTreePanel(DynamicTree dynamicTree) {
-		super(new BorderLayout());
+		JScrollPane scrollPane = new JScrollPane(tree);
+		add(scrollPane);
+	}
 
-		/** The add button's action. */
-		AbstractAction addButtonAction = new AbstractAction("Add") {
+	/** Remove all nodes except the root node. */
+	public void clear() {
+		rootNode.removeAllChildren();
+		treeModel.reload();
+	}
 
-			/** Serial ID */
-			private static final long serialVersionUID = 1L;
+	/** Remove the node. */
+	public void removeNode(DefaultMutableTreeNode node) {
+		MutableTreeNode parent = (MutableTreeNode) (node.getParent());
+		if (parent != null) {
+			treeModel.removeNodeFromParent(node);
+		}
+	}
 
-			@Override
-			public void actionPerformed(ActionEvent event) {
-
-				/** The DynamicTree we are working on. */
-				DynamicTree dynamicTree = (DynamicTree) getValue(KEY_DYNAMIC_TREE);
-
-				/**
-				 * In this demo we use a counter to give a unique name for each
-				 * node.
-				 */
-				Integer NodeId = (Integer) getValue(KEY_NODE_ID);
-				if (NodeId == null) {
-					NodeId = 0;
-				}
-
-				dynamicTree.addObject("New Node " + newNodeSuffix++);
-				putValue(KEY_NODE_ID, NodeId);
-
+	/** Remove the currently selected node. */
+	public void removeCurrentNode() {
+		TreePath currentSelection = tree.getSelectionPath();
+		if (currentSelection != null) {
+			DefaultMutableTreeNode currentNode = (DefaultMutableTreeNode) (currentSelection.getLastPathComponent());
+			MutableTreeNode parent = (MutableTreeNode) (currentNode.getParent());
+			if (parent != null) {
+				this.removeNode(currentNode);
+				return;
 			}
-		};
-		/** The add button. */
-		JButton addButton = new JButton(addButtonAction);
+		}
 
-		/** The remove button's action. */
-		AbstractAction removeButtonAction = new AbstractAction("Remove") {
+		// Either there was no selection, or the root was selected.
+		toolkit.beep();
+	}
 
-			/** Serial ID */
-			private static final long serialVersionUID = 1L;
+	/** Add child to the currently selected node. */
+	public DefaultMutableTreeNode addObjectAtCurrentNode(Object child) {
+		DefaultMutableTreeNode parentNode = null;
+		TreePath parentPath = tree.getSelectionPath();
 
-			@Override
-			public void actionPerformed(ActionEvent event) {
+		if (parentPath == null) {
+			parentNode = rootNode;
+		} else {
+			parentNode = (DefaultMutableTreeNode) (parentPath.getLastPathComponent());
+		}
 
-				/** The DynamicTree we are working on. */
-				DynamicTree dynamicTree = (DynamicTree) getValue(KEY_DYNAMIC_TREE);
-				dynamicTree.removeCurrentNode();
-			}
-		};
+		return addObject(parentNode, child, true);
+	}
 
-		/** The remove button. */
-		JButton removeButton = new JButton(removeButtonAction);
+	public DefaultMutableTreeNode addObject(DefaultMutableTreeNode parent, Object child) {
+		return addObject(parent, child, false);
+	}
 
-		/** The clear button's action. */
-		AbstractAction clearButtonAction = new AbstractAction("Clear") {
+	public DefaultMutableTreeNode addObject(DefaultMutableTreeNode parent, Object child, boolean shouldBeVisible) {
+		DefaultMutableTreeNode childNode = new DefaultMutableTreeNode(child);
 
-			/** Serial ID */
-			private static final long serialVersionUID = 1L;
+		if (parent == null) {
+			parent = rootNode;
+		}
 
-			@Override
-			public void actionPerformed(ActionEvent event) {
-				/** The DynamicTree we are working on. */
-				DynamicTree dynamicTree = (DynamicTree) getValue(KEY_DYNAMIC_TREE);
-				dynamicTree.clear();
-			}
-		};
-		/** The clear button. */
-		JButton clearButton = new JButton(clearButtonAction);
+		// It is key to invoke this on the TreeModel, and NOT
+		// DefaultMutableTreeNode
+		treeModel.insertNodeInto(childNode, parent, parent.getChildCount());
 
-		// Lay everything out.
-		dynamicTree.setPreferredSize(new Dimension(300, 150));
-		add(dynamicTree, BorderLayout.CENTER);
-
-		JPanel panel = new JPanel(new GridLayout(0, 3));
-
-		addButtonAction.putValue(KEY_DYNAMIC_TREE, dynamicTree);
-		panel.add(addButton);
-
-		removeButtonAction.putValue(KEY_DYNAMIC_TREE, dynamicTree);
-		panel.add(removeButton);
-
-		clearButtonAction.putValue(KEY_DYNAMIC_TREE, dynamicTree);
-		panel.add(clearButton);
-		add(panel, BorderLayout.SOUTH);
+		// Make sure the user can see the lovely new node.
+		if (shouldBeVisible) {
+			tree.scrollPathToVisible(new TreePath(childNode.getPath()));
+		}
+		return childNode;
 	}
 
 }

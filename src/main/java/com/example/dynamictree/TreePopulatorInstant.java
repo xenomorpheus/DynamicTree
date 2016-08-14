@@ -2,9 +2,12 @@ package com.example.dynamictree;
 
 import javax.swing.tree.DefaultMutableTreeNode;
 
-public class DemoTree {
+public class TreePopulatorInstant {
+	TreePopulatorInstant(){
+		super();
+	}
 
-	public static void populateTree(DynamicTree dynamicTree) {
+	public static void populateTree(DynamicTreePanel dynamicTree) {
 		String p1Name = new String("Parent 1");
 		String p2Name = new String("Parent 2");
 		String c1Name = new String("Child 1");
