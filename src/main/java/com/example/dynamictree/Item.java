@@ -49,14 +49,16 @@ public class Item implements ItemList {
 		return parent;
 	}
 	
-	private void remove(Item child){
-		children.remove(child);
+	private boolean remove(Item child){
+		return children.remove(child);
 	}
 
-	public void removeFromParent() throws Exception {
+	public boolean removeFromParent() {
 		if (parent == null){
-			throw new Exception("Parent is null");
+			throw new RuntimeException("Parent is null");
 		}
-		parent.remove(this);
+		boolean result = parent.remove(this);
+		parent = null;
+		return result;
 	}
 }
