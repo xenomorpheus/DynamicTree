@@ -43,7 +43,7 @@ public class Main {
 		frame.setVisible(true); // Display the window.
 
 		// UI updates from non-UI calls.
-		TreeChangerDelay changer = new TreeChangerDelay(treeModel, root);
+		Puppeteer changer = new Puppeteer(treeModel, root);
 		changer.start();
 
 	}

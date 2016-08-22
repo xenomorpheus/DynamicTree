@@ -3,12 +3,14 @@ package com.example.dynamictree;
 import javax.swing.event.TreeModelEvent;
 import javax.swing.event.TreeModelListener;
 import javax.swing.tree.DefaultMutableTreeNode;
-import org.apache.log4j.Logger;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class MyTreeModelListener implements TreeModelListener {
 
 	/** class logger */
-	private static final Logger LOGGER = Logger.getLogger(MyTreeModelListener.class.getName());
+	private static final Logger LOGGER = LogManager.getLogger("MyTreeModelListener");
 
 	public void treeNodesChanged(TreeModelEvent e) {
 		DefaultMutableTreeNode node = (DefaultMutableTreeNode) (e.getTreePath().getLastPathComponent());

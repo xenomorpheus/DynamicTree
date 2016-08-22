@@ -6,12 +6,13 @@ import java.util.List;
 public class Item implements ItemList {
 	private String name;
 	private Item parent;
-	List<Item> children = new ArrayList<>();
+	List<Item> children;
 
 	public Item(String name){
 		super();
 		this.name = name;
-		this.parent = null;
+		parent = null;
+		children = new ArrayList<>();
 	}
 
 	@Override

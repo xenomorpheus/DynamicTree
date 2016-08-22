@@ -1,19 +1,20 @@
 package com.example.dynamictree;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
-public class TreeChangerDelay extends Thread {
+public class Puppeteer extends Thread {
 
 	private static final int DELAY = 1000;
 
 	/** class logger */
-	private static final Logger LOGGER = Logger.getLogger(TreeChangerDelay.class.getName());
+	private static final Logger LOGGER = LogManager.getLogger("Puppeteer");
 
 	private ExtendedAbstractTreeModel treeModel;
 
 	private Item root;
 
-	TreeChangerDelay(ExtendedAbstractTreeModel treeModel, Item root) {
+	Puppeteer(ExtendedAbstractTreeModel treeModel, Item root) {
 		super();
 		this.treeModel = treeModel;
 		this.root = root;
