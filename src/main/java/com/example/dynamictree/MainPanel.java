@@ -61,13 +61,14 @@ public class MainPanel extends JPanel {
 					NodeId = 0;
 				}
 
-				dynamicTree.addObjectAtCurrentNode("New Node " + newNodeSuffix++);
+				dynamicTree.addObjectAtCurrentPath(new Item("New Item " + newNodeSuffix++), true);
 				putValue(KEY_NODE_ID, NodeId);
 
 			}
 		};
 		/** The add button. */
 		JButton addButton = new JButton(addButtonAction);
+		addButtonAction.putValue(KEY_DYNAMIC_TREE, dynamicTree);
 
 		/** The remove button's action. */
 		AbstractAction removeButtonAction = new AbstractAction("Remove") {
@@ -80,12 +81,13 @@ public class MainPanel extends JPanel {
 
 				/** The DynamicTree we are working on. */
 				DynamicTreePanel dynamicTree = (DynamicTreePanel) getValue(KEY_DYNAMIC_TREE);
-				dynamicTree.removeCurrentNode();
+				dynamicTree.removeObjectAtCurrentPath();
 			}
 		};
 
 		/** The remove button. */
 		JButton removeButton = new JButton(removeButtonAction);
+		removeButtonAction.putValue(KEY_DYNAMIC_TREE, dynamicTree);
 
 		/** The clear button's action. */
 		AbstractAction clearButtonAction = new AbstractAction("Clear") {
@@ -102,20 +104,15 @@ public class MainPanel extends JPanel {
 		};
 		/** The clear button. */
 		JButton clearButton = new JButton(clearButtonAction);
+		clearButtonAction.putValue(KEY_DYNAMIC_TREE, dynamicTree);
 
 		// Lay everything out.
 		dynamicTree.setPreferredSize(new Dimension(300, 150));
 		add(dynamicTree, BorderLayout.CENTER);
 
 		JPanel buttonPanel = new JPanel(new GridLayout(0, 3));
-
-		addButtonAction.putValue(KEY_DYNAMIC_TREE, dynamicTree);
 		buttonPanel.add(addButton);
-
-		removeButtonAction.putValue(KEY_DYNAMIC_TREE, dynamicTree);
 		buttonPanel.add(removeButton);
-
-		clearButtonAction.putValue(KEY_DYNAMIC_TREE, dynamicTree);
 		buttonPanel.add(clearButton);
 		add(buttonPanel, BorderLayout.SOUTH);
 	}

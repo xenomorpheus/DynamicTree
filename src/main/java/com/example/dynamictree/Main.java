@@ -7,9 +7,6 @@ package com.example.dynamictree;
 
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
-import javax.swing.tree.DefaultMutableTreeNode;
-
-import org.apache.log4j.Logger;
 
 /**
  * A JFrame with a JTree and various buttons to add/remove/clear nodes in the
@@ -19,9 +16,6 @@ import org.apache.log4j.Logger;
  * 
  */
 public class Main {
-	/** class logger */
-	private static final Logger LOGGER = Logger.getLogger(Main.class.getName());
-
 	/**
 	 * Create the GUI and show it. For thread safety, this method should be
 	 * invoked from the event-dispatching thread.
@@ -31,10 +25,11 @@ public class Main {
 		JFrame frame = new JFrame("DynamicTreeDemo");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-		DefaultMutableTreeNode rootNode = new DefaultMutableTreeNode("Root Node");
+		Item root = TreeInstant.getRoot();
+		ExtendedAbstractTreeModel treeModel = new MyTreeModel(root);
 
 		// Create the components.
-		DynamicTreePanel dynamicTree = new DynamicTreePanel(rootNode);
+		DynamicTreePanel dynamicTree = new DynamicTreePanel(treeModel);
 
 		// Create and set up the content panel.
 		MainPanel newContentPanel = new MainPanel(dynamicTree);
@@ -48,10 +43,8 @@ public class Main {
 		frame.setVisible(true); // Display the window.
 
 		// UI updates from non-UI calls.
-		TreePopulatorDelay sleeper = new TreePopulatorDelay(dynamicTree);
-		LOGGER.info("Sleeper created");
-		sleeper.start();
-		LOGGER.info("Sleeper run");
+		TreeChangerDelay changer = new TreeChangerDelay(treeModel, root);
+		changer.start();
 
 	}
 
