@@ -87,4 +87,15 @@ public class MyTreeModel extends AbstractTreeModel implements ExtendedAbstractTr
 		node.removeFromParent();
 	}
 
+	/** Build a TreePath by following a node up to root */
+	static private TreePath getPath(Item node) {
+		List<Item> itemList = new ArrayList<>();
+		while (node != null) {
+			itemList.add(node);
+			node = node.getParent();
+		}
+		Item[] itemArray = itemList.toArray(new Item[itemList.size()]);
+		return new TreePath(itemArray);
+	}
+
 }
