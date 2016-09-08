@@ -16,6 +16,19 @@ import javax.swing.SwingUtilities;
  * 
  */
 public class Main {
+	/** class logger */
+	//private static final Logger LOGGER = LogManager.getLogger("Main");
+
+	public static void main(String[] args) {
+		// Schedule a job for the event-dispatching thread:
+		// creating and showing this application's GUI.
+		SwingUtilities.invokeLater(new Runnable() {
+			public void run() {
+				createAndShowGUI();
+			}
+		});
+	}
+
 	/**
 	 * Create the GUI and show it. For thread safety, this method should be
 	 * invoked from the event-dispatching thread.
@@ -26,14 +39,17 @@ public class Main {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		Item root = TreeInstant.getRoot();
+
 		ExtendedAbstractTreeModel treeModel = new MyTreeModel(root);
 
+		// treeModel.setTree(tree);
+
 		// Create the components.
-		DynamicTreePanel dynamicTree = new DynamicTreePanel(treeModel);
+		DynamicTreePanel dynamicTreePanel = new DynamicTreePanel(treeModel);
 
 		// Create and set up the content panel.
-		MainPanel newContentPanel = new MainPanel(dynamicTree);
-		//TreePopulator.populateTree(dynamicTree);
+		MainPanel newContentPanel = new MainPanel(dynamicTreePanel);
+		// TreePopulator.populateTree(dynamicTree);
 
 		newContentPanel.setOpaque(true); // content panes must be opaque
 		frame.setContentPane(newContentPanel);
@@ -42,20 +58,12 @@ public class Main {
 		frame.pack();
 		frame.setVisible(true); // Display the window.
 
+		
+
 		// UI updates from non-UI calls.
-		Puppeteer changer = new Puppeteer(treeModel, root);
-		changer.start();
+		Puppeteer puppeteer = new Puppeteer(treeModel, root, dynamicTreePanel.getTree());
+		puppeteer.start();
 
-	}
-
-	public static void main(String[] args) {
-		// Schedule a job for the event-dispatching thread:
-		// creating and showing this application's GUI.
-		SwingUtilities.invokeLater(new Runnable() {
-			public void run() {
-				createAndShowGUI();
-			}
-		});
 	}
 
 }

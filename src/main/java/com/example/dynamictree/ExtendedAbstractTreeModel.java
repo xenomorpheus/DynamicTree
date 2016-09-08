@@ -16,9 +16,9 @@ public interface ExtendedAbstractTreeModel extends TreeModel {
 
 	void addObjectByPath(TreePath path, Item child);
 
-	void addObject(Item root, Item child1, boolean b);
+	void addObject(Item root, Item child1);
 
-	void removeNode(Item child1) throws Exception;
+	void removeNode(Item child1);
 }
 
 

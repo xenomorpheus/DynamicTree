@@ -20,24 +20,29 @@ public class MyTreeModel extends AbstractTreeModel implements ExtendedAbstractTr
 
 	@Override
 	public Object getRoot() {
+		LOGGER.info("getRoot root="+root);
 		return root;
 	}
 
 	@Override
 	public Object getChild(Object parent, int index) {
 		Item node = (Item) parent;
-		return node.get(index);
+		Item child = node.get(index);
+		LOGGER.info("getChild parent="+parent+", index="+index+", child="+child);
+		return child;
 	}
 
 	@Override
 	public int getChildCount(Object parent) {
 		Item node = (Item) parent;
-		return node.size();
+		int size = node.size();
+		LOGGER.info("getChildCount parent="+parent+", size="+size);
+		return size;
 	}
 
 	@Override
 	public boolean isLeaf(Object object) {
-		return false;
+		return false; // getChildCount(object) < 1;
 	}
 
 	@Override
@@ -49,7 +54,9 @@ public class MyTreeModel extends AbstractTreeModel implements ExtendedAbstractTr
 	@Override
 	public int getIndexOfChild(Object parent, Object child) {
 		Item parentNode = (Item) parent;
-		return parentNode.indexOf((Item) child);
+		int index = parentNode.indexOf((Item) child);
+		LOGGER.info("getIndexOfChild parent="+parent+", child="+child+", index="+index);
+		return index;
 	}
 
 	@Override
@@ -76,22 +83,20 @@ public class MyTreeModel extends AbstractTreeModel implements ExtendedAbstractTr
 	}
 
 	@Override
-	public void addObject(Item parent, Item child, boolean uiSelect) {
+	public void addObject(Item parent, Item child) {
 		parent.add(child);
-
-		// TODO if b true, then set parent as selected node
 	}
 
 	@Override
-	public void removeNode(Item node) throws Exception {
+	public void removeNode(Item node){
 		node.removeFromParent();
 	}
 
 	/** Build a TreePath by following a node up to root */
-	static private TreePath getPath(Item node) {
+	static public TreePath getTreePath(Item node) {
 		List<Item> itemList = new ArrayList<>();
 		while (node != null) {
-			itemList.add(node);
+			itemList.add(0,node);
 			node = node.getParent();
 		}
 		Item[] itemArray = itemList.toArray(new Item[itemList.size()]);

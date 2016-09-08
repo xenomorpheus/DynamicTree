@@ -31,13 +31,14 @@ public class DynamicTreePanel extends JPanel {
 	/** serial id */
 	private static final long serialVersionUID = 1L;
 	private ExtendedAbstractTreeModel treeModel;
-	private JTree tree;
+	private JTree tree = null;
 
 	public DynamicTreePanel(ExtendedAbstractTreeModel treeModel) {
 		super(new GridLayout(1, 0));
 		this.treeModel = treeModel;
 
 		treeModel.addTreeModelListener(new MyTreeModelListener());
+
 		tree = new JTree(treeModel);
 		tree.setEditable(true);
 		tree.getSelectionModel().setSelectionMode(TreeSelectionModel.SINGLE_TREE_SELECTION);
@@ -45,6 +46,10 @@ public class DynamicTreePanel extends JPanel {
 
 		JScrollPane scrollPane = new JScrollPane(tree);
 		add(scrollPane);
+	}
+
+	protected JTree getTree() {
+		return tree;
 	}
 
 	/** Remove all nodes except the root node. */
@@ -55,7 +60,7 @@ public class DynamicTreePanel extends JPanel {
 
 	/** Remove the currently selected node. */
 	public void removeObjectAtCurrentPath() {
-		treeModel.removeObjectByPath( tree.getSelectionPath());
+		treeModel.removeObjectByPath(tree.getSelectionPath());
 	}
 
 	/** Add child to the currently selected node. */
