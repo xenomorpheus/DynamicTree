@@ -62,12 +62,14 @@ public class MyTreeModel extends AbstractTreeModel implements ExtendedAbstractTr
 	@Override
 	public void reload() {
 		// TODO Auto-generated method stub
+		LOGGER.info("reload");
 
 	}
 
 	@Override
 	public void clear() {
 		// TODO Auto-generated method stub
+		LOGGER.info("clear");
 
 	}
 
@@ -79,16 +81,19 @@ public class MyTreeModel extends AbstractTreeModel implements ExtendedAbstractTr
 
 	@Override
 	public void addObjectByPath(TreePath path, Item child) {
+		LOGGER.info("addObjectByPath path="+path+", child="+child);
 		((Item) path.getLastPathComponent()).add(child);
 	}
 
 	@Override
 	public void addObject(Item parent, Item child) {
+		LOGGER.info("addObject parent="+parent+", child="+child);
 		parent.add(child);
 	}
 
 	@Override
 	public void removeNode(Item node){
+		LOGGER.info("removeNode node="+node);
 		node.removeFromParent();
 	}
 

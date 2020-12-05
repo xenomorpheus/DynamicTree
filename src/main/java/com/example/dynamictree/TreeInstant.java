@@ -13,8 +13,8 @@ public class TreeInstant {
 		Item p2 = new Item("Parent 2");
 		p2.add(c2);
 		Item root = new Item("root");
-		root.add(p1);
-		root.add(p2);
+		// root.add(p1); // TODO should these really be removed ?
+		// root.add(p2); // TODO should these really be removed ?
 		return root;
 	}
 }

@@ -58,8 +58,6 @@ public class Main {
 		frame.pack();
 		frame.setVisible(true); // Display the window.
 
-		
-
 		// UI updates from non-UI calls.
 		Puppeteer puppeteer = new Puppeteer(treeModel, root, dynamicTreePanel.getTree());
 		puppeteer.start();

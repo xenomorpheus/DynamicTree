@@ -8,7 +8,7 @@ import org.apache.logging.log4j.Logger;
 
 public class Puppeteer extends Thread {
 
-	private static final int DELAY = 1000;
+	private static final int DELAY = 5000;
 
 	/** class logger */
 	private static final Logger LOGGER = LogManager.getLogger("Puppeteer");
