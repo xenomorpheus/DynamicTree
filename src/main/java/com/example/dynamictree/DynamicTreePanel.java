@@ -26,7 +26,7 @@ import javax.swing.tree.TreeSelectionModel;
 
 /**
  * A JTree in a JPanel.
- * 
+ *
  * @author xenomorpheus
  */
 
