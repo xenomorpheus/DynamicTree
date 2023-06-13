@@ -9,18 +9,19 @@ import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 import javax.swing.tree.DefaultMutableTreeNode;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  * A JFrame with a JTree and various buttons to add/remove/clear nodes in the
  * tree.
- * 
+ *
  * @author xenomorpheus
- * 
+ *
  */
 public class Main {
 	/** class logger */
-	private static final Logger LOGGER = Logger.getLogger(Main.class.getName());
+	private static final Logger logger = LogManager.getLogger(Main.class);
 
 	/**
 	 * Create the GUI and show it. For thread safety, this method should be
@@ -49,9 +50,9 @@ public class Main {
 
 		// UI updates from non-UI calls.
 		TreePopulatorDelay sleeper = new TreePopulatorDelay(dynamicTree);
-		LOGGER.info("Sleeper created");
+		logger.info("Sleeper created");
 		sleeper.start();
-		LOGGER.info("Sleeper run");
+		logger.info("Sleeper run");
 
 	}
 
