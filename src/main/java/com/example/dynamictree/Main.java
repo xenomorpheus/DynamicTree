@@ -32,13 +32,13 @@ public class Main {
 		JFrame frame = new JFrame("DynamicTreeDemo");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-		DefaultMutableTreeNode rootNode = new DefaultMutableTreeNode("Root Node");
+		var rootNode = new DefaultMutableTreeNode("Root Node");
 
 		// Create the components.
-		DynamicTreePanel dynamicTree = new DynamicTreePanel(rootNode);
+		var dynamicTree = new DynamicTreePanel(rootNode);
 
 		// Create and set up the content panel.
-		MainPanel newContentPanel = new MainPanel(dynamicTree);
+		var newContentPanel = new MainPanel(dynamicTree);
 		//TreePopulator.populateTree(dynamicTree);
 
 		newContentPanel.setOpaque(true); // content panes must be opaque
