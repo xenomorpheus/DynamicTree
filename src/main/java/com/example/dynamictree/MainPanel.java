@@ -19,9 +19,9 @@ import javax.swing.JPanel;
 /**
  * A JPanel with a JTree and various buttons for add/remove/clear nodes in the
  * tree.
- * 
+ *
  * @author xenomorpheus
- * 
+ *
  */
 
 public class MainPanel extends JPanel {
@@ -117,6 +117,7 @@ public class MainPanel extends JPanel {
 
 		clearButtonAction.putValue(KEY_DYNAMIC_TREE, dynamicTree);
 		buttonPanel.add(clearButton);
+
 		add(buttonPanel, BorderLayout.SOUTH);
 	}
 
