@@ -5,6 +5,11 @@
 	</Properties>
 
 	<Appenders>
+
+	    <Console name="Console" target="SYSTEM_OUT">
+	      <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
+	    </Console>
+
 		<RollingFile name="fileLogger"
 			fileName="${basePath}/DynamicTree.log"
 			filePattern="${basePath}/DynamicTree-%d{yyyy-MM-dd}.log">
@@ -26,8 +31,9 @@
 		</RollingFile>
 	</Appenders>
 	<Loggers>
-		<Root level="info" additivity="false">
-			<appender-ref ref="fileLogger" />
-		</Root>
+	    <Root level="debug">
+	      <appender-ref ref="Console" level="info"/>
+	      <appender-ref ref="fileLogger" level="error"/>
+	    </Root>
 	</Loggers>
 </Configuration>
