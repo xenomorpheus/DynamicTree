@@ -17,3 +17,5 @@ hs_err_pid*
 /.project
 /.settings
 /target
+.vscode
+DynamicTree.code-workspace
