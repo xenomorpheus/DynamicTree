@@ -85,7 +85,7 @@ public class MainPanel extends JPanel {
 		JButton clearButton = new JButton(clearButtonAction);
 
 		// Lay everything out.
-		dynamicTree.setPreferredSize(new Dimension(300, 150));
+		dynamicTree.setPreferredSize(new Dimension(400, 150));
 		add(dynamicTree, BorderLayout.CENTER);
 
 		JPanel buttonPanel = new JPanel(new GridLayout(0, 3));
