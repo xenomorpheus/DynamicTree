@@ -1,7 +1,8 @@
 DynamicTree
 ===========
 
-DynamicTree - example Dynamic JTree swing maven project
+DynamicTree - example Dynamic JTree swing maven project.
+Nodes are added/removed via the TreeModel, not directly on the nodes.
 
 Build
 =====
@@ -19,10 +20,4 @@ Correct Behaviour
 
 The JTree will be correctly updated when adding or removing nodes by directly calling methods on the DynamicTreePanel.
 
-Faults
-======
-
-The JTree fails to be updated when adding/removing nodes to/from existing nodes.
-
-The MyTreeModelListener instance fails to be notified of changes to the DefaultTreeModel.
 
