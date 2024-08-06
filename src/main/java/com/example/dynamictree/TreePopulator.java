@@ -2,8 +2,8 @@ package com.example.dynamictree;
 
 import javax.swing.tree.DefaultMutableTreeNode;
 
-public class TreePopulatorInstant {
-	TreePopulatorInstant(){
+public class TreePopulator {
+	TreePopulator(){
 		super();
 	}
 
@@ -13,10 +13,8 @@ public class TreePopulatorInstant {
 		String c1Name = new String("Child 1");
 		String c2Name = new String("Child 2");
 
-		DefaultMutableTreeNode p1, p2;
-
-		p1 = dynamicTree.addObject(null, p1Name);
-		p2 = dynamicTree.addObject(null, p2Name);
+		DefaultMutableTreeNode p1 = dynamicTree.addObject(null, p1Name);
+		DefaultMutableTreeNode p2 = dynamicTree.addObject(null, p2Name);
 
 		dynamicTree.addObject(p1, c1Name);
 		dynamicTree.addObject(p1, c2Name);

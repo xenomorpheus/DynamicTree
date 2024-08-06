@@ -9,9 +9,6 @@ import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 import javax.swing.tree.DefaultMutableTreeNode;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
 /**
  * A JFrame with a JTree and various buttons to add/remove/clear nodes in the
  * tree.
@@ -20,9 +17,6 @@ import org.apache.logging.log4j.Logger;
  *
  */
 public class Main {
-	/** class logger */
-	private static final Logger logger = LogManager.getLogger(Main.class);
-
 	/**
 	 * Create the GUI and show it. For thread safety, this method should be
 	 * invoked from the event-dispatching thread.
@@ -49,11 +43,8 @@ public class Main {
 		frame.setVisible(true); // Display the window.
 
 		// UI updates from non-UI calls.
-		TreePopulatorDelay sleeper = new TreePopulatorDelay(dynamicTree);
-		logger.info("Sleeper created");
-		sleeper.start();
-		logger.info("Sleeper run");
-
+		TreeManipulator manipulator = new TreeManipulator(dynamicTree);
+		manipulator.start();
 	}
 
 	public static void main(String[] args) {

@@ -5,23 +5,23 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-public class TreePopulatorDelay extends Thread {
+public class TreeManipulator extends Thread {
 
 	private static final int DELAY = 8000;
 
 	/** class logger */
-	private static final Logger logger = LogManager.getLogger(TreePopulatorDelay.class.getName());
+	private static final Logger logger = LogManager.getLogger(TreeManipulator.class.getName());
 
 	private DynamicTreePanel dynamicTreePanel;
 
-	TreePopulatorDelay(DynamicTreePanel dynamicTreePanel) {
+	TreeManipulator(DynamicTreePanel dynamicTreePanel) {
 		super();
 		this.dynamicTreePanel = dynamicTreePanel;
 	}
 
 	@Override
 	public void run() {
-		logger.info("Sleeper must awaken");
+		logger.info("TreeManipulator starting");
 		logger.info("Adding child1");
 		DefaultMutableTreeNode child1 = dynamicTreePanel.addObject(null, "child1 - To be removed by dynamicTreePanel", true);
 		logger.info("Adding child2");
