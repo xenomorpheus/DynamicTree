@@ -6,7 +6,7 @@
 
 package com.example.dynamictree;
 
-//package components;
+// package components;
 
 /*
  * This code is based on an example provided by Richard Stanford,
@@ -29,93 +29,92 @@ import javax.swing.tree.TreeSelectionModel;
  *
  * @author xenomorpheus
  */
-
 public class DynamicTreePanel extends JPanel {
-	/** serial id */
-	private static final long serialVersionUID = 1L;
-	private DefaultMutableTreeNode rootNode;
-	private DefaultTreeModel treeModel;
-	private JTree tree;
-	private Toolkit toolkit = Toolkit.getDefaultToolkit();
+  /** serial id */
+  private static final long serialVersionUID = 1L;
 
-	public DynamicTreePanel(DefaultMutableTreeNode rootNode) {
-		super(new GridLayout(1, 0));
+  private DefaultMutableTreeNode rootNode;
+  private DefaultTreeModel treeModel;
+  private JTree tree;
+  private Toolkit toolkit = Toolkit.getDefaultToolkit();
 
-		this.rootNode = rootNode;
-		treeModel = new DefaultTreeModel(rootNode);
-		tree = new JTree(treeModel);
-		tree.setEditable(true);
-		tree.getSelectionModel().setSelectionMode(TreeSelectionModel.SINGLE_TREE_SELECTION);
-		tree.setShowsRootHandles(true);
+  public DynamicTreePanel(DefaultMutableTreeNode rootNode) {
+    super(new GridLayout(1, 0));
 
-		JScrollPane scrollPane = new JScrollPane(tree);
-		add(scrollPane);
-	}
+    this.rootNode = rootNode;
+    treeModel = new DefaultTreeModel(rootNode);
+    tree = new JTree(treeModel);
+    tree.setEditable(true);
+    tree.getSelectionModel().setSelectionMode(TreeSelectionModel.SINGLE_TREE_SELECTION);
+    tree.setShowsRootHandles(true);
 
-	/** Remove all nodes except the root node. */
-	public void clear() {
-		rootNode.removeAllChildren();
-		treeModel.reload();
-	}
+    JScrollPane scrollPane = new JScrollPane(tree);
+    add(scrollPane);
+  }
 
-	/** Remove the node. */
-	public void removeNode(DefaultMutableTreeNode node) {
-		MutableTreeNode parent = (MutableTreeNode) (node.getParent());
-		if (parent != null) {
-			treeModel.removeNodeFromParent(node);
-		}
-	}
+  /** Remove all nodes except the root node. */
+  public void clear() {
+    rootNode.removeAllChildren();
+    treeModel.reload();
+  }
 
-	/** Remove the currently selected node. */
-	public void removeCurrentNode() {
-		TreePath currentSelection = tree.getSelectionPath();
-		if (currentSelection != null) {
-			DefaultMutableTreeNode currentNode = (DefaultMutableTreeNode) (currentSelection.getLastPathComponent());
-			MutableTreeNode parent = (MutableTreeNode) (currentNode.getParent());
-			if (parent != null) {
-				this.removeNode(currentNode);
-				return;
-			}
-		}
+  /** Remove the node. */
+  public void removeNode(MutableTreeNode node) {
+    MutableTreeNode parent = (MutableTreeNode) (node.getParent());
+    if (parent != null) {
+      treeModel.removeNodeFromParent(node);
+    }
+  }
 
-		// Either there was no selection, or the root was selected.
-		toolkit.beep();
-	}
+  /** Remove the currently selected node. */
+  public void removeCurrentNode() {
+    TreePath currentSelection = tree.getSelectionPath();
+    if (currentSelection != null) {
+      MutableTreeNode currentNode = (MutableTreeNode) (currentSelection.getLastPathComponent());
+      MutableTreeNode parent = (MutableTreeNode) (currentNode.getParent());
+      if (parent != null) {
+        this.removeNode(currentNode);
+        return;
+      }
+    }
 
-	/** Add child to the currently selected node. */
-	public DefaultMutableTreeNode addObjectAtCurrentNode(Object child) {
-		DefaultMutableTreeNode parentNode = null;
-		TreePath parentPath = tree.getSelectionPath();
+    // Either there was no selection, or the root was selected.
+    toolkit.beep();
+  }
 
-		if (parentPath == null) {
-			parentNode = rootNode;
-		} else {
-			parentNode = (DefaultMutableTreeNode) (parentPath.getLastPathComponent());
-		}
+  /** Add child to the currently selected node. */
+  public MutableTreeNode addObjectAtCurrentNode(Object child) {
+    MutableTreeNode parentNode = null;
+    TreePath parentPath = tree.getSelectionPath();
 
-		return addObject(parentNode, child, true);
-	}
+    if (parentPath == null) {
+      parentNode = rootNode;
+    } else {
+      parentNode = (MutableTreeNode) (parentPath.getLastPathComponent());
+    }
 
-	public DefaultMutableTreeNode addObject(DefaultMutableTreeNode parent, Object child) {
-		return addObject(parent, child, false);
-	}
+    return addObject(parentNode, child, true);
+  }
 
-	public DefaultMutableTreeNode addObject(DefaultMutableTreeNode parent, Object child, boolean shouldBeVisible) {
-		DefaultMutableTreeNode childNode = new DefaultMutableTreeNode(child);
+  public MutableTreeNode addObject(MutableTreeNode parent, Object child) {
+    return addObject(parent, child, false);
+  }
 
-		if (parent == null) {
-			parent = rootNode;
-		}
+  public MutableTreeNode addObject(MutableTreeNode parent, Object child, boolean shouldBeVisible) {
+    DefaultMutableTreeNode childNode = new DefaultMutableTreeNode(child);
 
-		// It is key to invoke this on the TreeModel, and NOT
-		// DefaultMutableTreeNode
-		treeModel.insertNodeInto(childNode, parent, parent.getChildCount());
+    if (parent == null) {
+      parent = rootNode;
+    }
 
-		// Make sure the user can see the lovely new node.
-		if (shouldBeVisible) {
-			tree.scrollPathToVisible(new TreePath(childNode.getPath()));
-		}
-		return childNode;
-	}
+    // It is key to invoke this on the TreeModel, and NOT
+    // MutableTreeNode
+    treeModel.insertNodeInto(childNode, parent, parent.getChildCount());
 
+    // Make sure the user can see the lovely new node.
+    if (shouldBeVisible) {
+      tree.scrollPathToVisible(new TreePath(childNode.getPath()));
+    }
+    return childNode;
+  }
 }
