@@ -2,7 +2,9 @@ DynamicTree
 ===========
 
 DynamicTree - example Dynamic JTree swing maven project.
-Nodes are added/removed via the TreeModel, not directly on the nodes.
+Nodes are added/removed via the TreeModel.
+There is no non-swing representation of the tree, not even
+user objects within the MutableTreeNode.
 
 Build
 =====
