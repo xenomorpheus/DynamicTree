@@ -10,51 +10,41 @@ import javax.swing.SwingUtilities;
 import javax.swing.tree.DefaultMutableTreeNode;
 
 /**
- * A JFrame with a JTree and various buttons to add/remove/clear nodes in the
- * tree.
+ * Main class to run the Dynamic Tree example. This class initializes the tree with a root node and
+ * sets up the GUI. It also starts a thread to manipulate the tree.
  *
  * @author xenomorpheus
- *
  */
 public class Main {
-	/**
-	 * Create the GUI and show it. For thread safety, this method should be
-	 * invoked from the event-dispatching thread.
-	 */
-	private static void createAndShowGUI() {
-		// Create and set up the window.
-		JFrame frame = new JFrame("DynamicTreeDemo");
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-		var rootNode = new DefaultMutableTreeNode("Root Node");
+  public static void main(String[] args) {
 
-		// Create the components.
-		var dynamicTree = new DynamicTreePanel(rootNode);
+    var rootNode = new DefaultMutableTreeNode("Root Node");
 
-		// Create and set up the content panel.
-		var newContentPanel = new MainPanel(dynamicTree);
-		//TreePopulator.populateTree(dynamicTree);
+    // Schedule a job for the event-dispatching thread:
+    // creating and showing this application's GUI.
+    SwingUtilities.invokeLater(
+        () -> { // Create and set up the window.
+          JFrame frame = new JFrame("DynamicTreeDemo");
+          frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-		newContentPanel.setOpaque(true); // content panes must be opaque
-		frame.setContentPane(newContentPanel);
+          // Create the components.
+          var dynamicTree = new DynamicTreePanel(rootNode);
 
-		frame.setLocationRelativeTo(null); // This will centre your app.
-		frame.pack();
-		frame.setVisible(true); // Display the window.
+          // Create and set up the content panel.
+          var newContentPanel = new MainPanel(dynamicTree);
+          TreePopulator.populateTree(dynamicTree);
 
-		// UI updates from non-UI calls.
-		TreeManipulator manipulator = new TreeManipulator(dynamicTree);
-		manipulator.start();
-	}
+          newContentPanel.setOpaque(true); // content panes must be opaque
+          frame.setContentPane(newContentPanel);
 
-	public static void main(String[] args) {
-		// Schedule a job for the event-dispatching thread:
-		// creating and showing this application's GUI.
-		SwingUtilities.invokeLater(new Runnable() {
-			public void run() {
-				createAndShowGUI();
-			}
-		});
-	}
+          frame.setLocationRelativeTo(null); // This will centre your app.
+          frame.pack();
+          frame.setVisible(true); // Display the window.
 
+          // UI updates from non-UI calls.
+          TreeManipulator manipulator = new TreeManipulator(dynamicTree);
+          manipulator.start();
+        });
+  }
 }
